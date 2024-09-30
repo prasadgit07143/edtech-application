@@ -422,7 +422,9 @@ public class PageController {
     public ModelAndView getQuiz(@PathVariable Long quizId) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("quiz");
-        mv.addObject("quiz", quizService.getQuizById(quizId));
+        Quiz quiz = quizService.getQuizById(quizId).orElse(null);
+        if (quiz != null)
+            mv.addObject("quiz", quiz);
         return mv;
     }
 }

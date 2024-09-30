@@ -173,7 +173,7 @@
 
         .user-comments {
             overflow-y: scroll;
-            max-height: 270px;
+            max-height: 240px;
             background: #c3faff;
             border-radius: 6px;
             padding: 16px;
@@ -278,7 +278,7 @@
                     </li>
                 </c:forEach>
                 <li>
-                    <a href="/quiz/${module.moduleId}" target="_blank" class="quiz-link">Go to Quiz</a>
+                    <a href="/quiz/${module.quiz.quizId}" target="_blank" class="quiz-link">Go to Quiz</a>
                 </li>
             </ul>
         </div>
