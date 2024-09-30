@@ -3,12 +3,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico"/>
+    <link rel="icon" type="image/png" href="/resources/assets/img/favicon.ico"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Add Challenge</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/assets/css/demo.css"/>
+    <link rel="stylesheet" href="/resources/assets/css/demo.css"/>
     <style>
         body {
             background: #f2f2f2; /* Light gray background */
@@ -68,7 +68,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<jsp:include page="nav-admin.jsp"/>
+<jsp:include page="/navbar.jsp"/>
 <div class="wrapper">
     <div class="container">
         <div class="row">
