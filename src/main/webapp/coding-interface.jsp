@@ -296,29 +296,29 @@ int main() {
                         clientSecret: "4358cf6d43dbc889c305f1b5eeabe8f9c4479757cc55e6553fca852af52cdab6",
                     };
 
-                    <%--fetch(fullUrl, {--%>
-                    <%--    method: "POST",--%>
-                    <%--    headers: {"Content-Type": "application/json"},--%>
-                    <%--    body: JSON.stringify(data),--%>
-                    <%--})--%>
-                    <%--    .then((response) => response.json())--%>
-                    <%--    .then((data) => {--%>
-                    <%--        const actualOutput = data.output.trim();--%>
-                    <%--        const expectedOutput = testCase.testCaseOutput.trim();--%>
-                    <%--        console.log("Acutal: " + actualOutput + "\nExpected: " + expectedOutput);--%>
+                    fetch(fullUrl, {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(data),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const actualOutput = data.output.trim();
+                            const expectedOutput = testCase.testCaseOutput.trim();
+                            console.log("Acutal: " + actualOutput + "\nExpected: " + expectedOutput);
 
-                    <%--        if (actualOutput == expectedOutput) {--%>
-                    <%--            passedCount++;--%>
-                    <%--        }--%>
+                            if (actualOutput == expectedOutput) {
+                                passedCount++;
+                            }
 
-                    <%--        if (index === testCases.length - 1) {--%>
-                    <%--            testcaseResult.textContent = "Passed " + passedCount + " out of " + testCases.length + " test cases.";--%>
-                    <%--            if (passedCount === testCases.length)--%>
-                    <%--                window.location.href = "/submitCodeChecker/${challenge.challengeId}";--%>
-                    <%--        }--%>
-                    <%--    })--%>
-                    <%--    .catch((error) => console.error("Error:", error));--%>
-                    window.location.href = "/submitCodeChecker/${challenge.challengeId}";
+                            if (index === testCases.length - 1) {
+                                testcaseResult.textContent = "Passed " + passedCount + " out of " + testCases.length + " test cases.";
+                                if (passedCount === testCases.length)
+                                    window.location.href = "/submitCodeChecker/${challenge.challengeId}";
+                            }
+                        })
+                        .catch((error) => console.error("Error:", error));
+                    <%--window.location.href = "/submitCodeChecker/${challenge.challengeId}";--%>
                 });
             })
             .catch(error => console.error("Error fetching challenge:", error));

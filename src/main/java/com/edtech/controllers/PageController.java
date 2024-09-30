@@ -59,6 +59,17 @@ public class PageController {
         return mv;
     }
 
+    @GetMapping("/admin-main")
+    public ModelAndView adminMainPage(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("admin-home");
+        if (request.getCookies() != null) {
+            for (Cookie c : request.getCookies())
+                if (c.getName().equals("username")) mv.addObject("username", c.getValue());
+        }
+        return mv;
+    }
+
     @GetMapping("/admin-home")
     public String adminHomePage() {
         return "admin-home";
@@ -80,10 +91,25 @@ public class PageController {
     }
 
     @PostMapping("/admin-login")
-    public String adminLoginPage(User user) {
+    public String adminLoginPage(User user, HttpServletResponse response) {
         if (userService.findByUsername(user.getUsername()) == null || userService.findByUsername(user.getUsername()).getRole().equals("LEARNER"))
             return "redirect:/admin-login";
-        return "redirect:/admin-home";
+
+        User loggedInUser = userService.findByUsername(user.getUsername());
+        Cookie userIdCookie = new Cookie("userId", loggedInUser.getUserId().toString());
+        Cookie usernameCookie = new Cookie("username", loggedInUser.getUsername());
+        Cookie emailCookie = new Cookie("email", loggedInUser.getEmail());
+        Cookie roleCookie = new Cookie("role", loggedInUser.getRole());
+        Cookie badgeCookie = new Cookie("badge", loggedInUser.getBadge());
+
+        Cookie[] userCookies = {userIdCookie, usernameCookie, emailCookie, roleCookie, badgeCookie};
+        for (Cookie c : userCookies) {
+            cookieMap.put(c.getName(), c.getValue());
+            c.setPath("/");
+            c.setMaxAge(7 * 24 * 60 * 60);
+            response.addCookie(c);
+        }
+        return "redirect:/admin-main";
     }
 
     @PostMapping("/login")
